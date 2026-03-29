@@ -6,30 +6,35 @@
   <meta name="theme-color" content="#0a0a0a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Nexa Vault — premium mobile-first SaaS dashboard for game top-ups, vouchers, and digital storefronts.">
   <title>Nexa Vault — Dashboard</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       §1 · PREMIUM HEADER
-       ═══════════════════════════════════════════════════════════ -->
-  <header class="header" id="appHeader">
+<body class="nv-body">
+
+  <header class="header" id="appHeader" role="banner">
     <div class="header__inner">
-
-      <!-- Hamburger Menu Trigger -->
-      <button class="header__action header__action--menu" id="menuTrigger" type="button" aria-label="Open navigation menu">
-        <span class="header__hamburger">
+      <button
+        class="header__action header__action--menu"
+        id="menuTrigger"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="menuOverlay"
+      >
+        <span class="header__hamburger" aria-hidden="true">
           <span class="header__hamburger-line header__hamburger-line--top"></span>
           <span class="header__hamburger-line header__hamburger-line--mid"></span>
           <span class="header__hamburger-line header__hamburger-line--bot"></span>
         </span>
       </button>
 
-      <!-- Central Brand Logo -->
       <div class="header__brand">
-        <a href="/" class="header__brand-link" aria-label="Nexa Vault Home">
+        <a href="./" class="header__brand-link" aria-label="Nexa Vault Home">
           <img
             class="header__brand-logo"
             src="assets/nexa-vault-brand.png"
@@ -37,79 +42,79 @@
             width="120"
             height="32"
             loading="eager"
+            decoding="async"
           >
         </a>
       </div>
 
-      <!-- Search Icon Trigger -->
-      <button class="header__action header__action--search" id="searchTrigger" type="button" aria-label="Open search">
-        <span class="header__search-icon" aria-hidden="true">
-          <!-- SVG / Icon font injected via CSS or JS -->
-        </span>
+      <button
+        class="header__action header__action--search"
+        id="searchTrigger"
+        type="button"
+        aria-label="Open search"
+        aria-expanded="false"
+        aria-controls="searchOverlay"
+      >
+        <span class="header__search-icon" aria-hidden="true"></span>
       </button>
-
     </div>
   </header>
 
+  <div
+    class="search-fs"
+    id="searchOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Search"
+    hidden
+  >
+    <div class="search-fs__backdrop" id="searchBackdrop"></div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       §2 · FULL-SCREEN SEARCH OVERLAY
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="search-fs" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Search" hidden>
-    <div class="search-fs__backdrop"></div>
-
-    <div class="search-fs__panel">
-
-      <!-- Search Top Bar -->
+    <div class="search-fs__container">
       <div class="search-fs__topbar">
-        <button class="search-fs__back" id="searchClose" type="button" aria-label="Close search">
-          <span class="search-fs__back-icon" aria-hidden="true">
-            <!-- Back / Close icon -->
-          </span>
+        <button
+          class="search-fs__back"
+          id="searchClose"
+          type="button"
+          aria-label="Close search"
+        >
+          <span class="search-fs__back-icon" aria-hidden="true"></span>
         </button>
 
         <div class="search-fs__input-wrap">
-          <span class="search-fs__input-icon" aria-hidden="true">
-            <!-- Magnifier icon -->
-          </span>
+          <span class="search-fs__input-icon" aria-hidden="true"></span>
           <input
             class="search-fs__input"
             id="searchInput"
             type="search"
-            placeholder="Search games, top-ups, vouchers…"
+            placeholder="Search games, top-ups, vouchers..."
             autocomplete="off"
-            autofocus
+            autocorrect="off"
+            spellcheck="false"
+            aria-label="Search"
           >
-          <button class="search-fs__input-clear" id="searchInputClear" type="button" aria-label="Clear search field" hidden>
+          <button
+            class="search-fs__input-clear"
+            id="searchInputClear"
+            type="button"
+            aria-label="Clear search field"
+            hidden
+          >
             <span class="search-fs__input-clear-icon" aria-hidden="true"></span>
           </button>
         </div>
       </div>
 
-      <!-- Search Body -->
       <div class="search-fs__body">
-
-        <!-- Recent Searches -->
         <section class="search-fs__section search-fs__section--recent" id="searchRecent">
           <div class="search-fs__section-header">
             <h2 class="search-fs__section-title">Recent Searches</h2>
             <button class="search-fs__clear-all" id="searchClearAll" type="button">Clear All</button>
           </div>
-          <ul class="search-fs__recent-list" id="searchRecentList">
-            <!-- JS will populate recent search items -->
-            <!-- Example skeleton:
-            <li class="search-fs__recent-item">
-              <span class="search-fs__recent-icon" aria-hidden="true"></span>
-              <span class="search-fs__recent-text">Free Fire Diamond</span>
-              <button class="search-fs__recent-remove" type="button" aria-label="Remove">
-                <span class="search-fs__recent-remove-icon" aria-hidden="true"></span>
-              </button>
-            </li>
-            -->
-          </ul>
+
+          <ul class="search-fs__recent-list" id="searchRecentList" role="list"></ul>
         </section>
 
-        <!-- Suggestion Tags -->
         <section class="search-fs__section search-fs__section--suggestions" id="searchSuggestions">
           <h2 class="search-fs__section-title">Popular Searches</h2>
           <div class="search-fs__tags">
@@ -124,45 +129,43 @@
           </div>
         </section>
 
-        <!-- Live Search Results (populated by JS) -->
-        <section class="search-fs__section search-fs__section--results" id="searchResults" hidden>
+        <section
+          class="search-fs__section search-fs__section--results"
+          id="searchResults"
+          hidden
+        >
           <h2 class="search-fs__section-title">Results</h2>
-          <ul class="search-fs__results-list" id="searchResultsList">
-            <!-- JS injects result items here -->
-          </ul>
+          <ul class="search-fs__results-list" id="searchResultsList"></ul>
         </section>
-
       </div>
     </div>
   </div>
 
-
-  <!-- ═══════════════════════════════════════════════════════════
-       §3 · ADVANCED SIDE DRAWER MENU
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="Navigation menu" hidden>
-
-    <!-- Backdrop -->
+  <div
+    class="menu-overlay"
+    id="menuOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+    hidden
+  >
     <div class="menu-overlay__backdrop" id="menuBackdrop"></div>
 
-    <!-- Drawer (right-aligned) -->
     <nav class="menu-overlay__drawer" id="menuDrawer" aria-label="Main navigation">
-
-      <!-- Drawer Header / Close -->
       <div class="menu-overlay__header">
         <span class="menu-overlay__header-title">Menu</span>
-        <button class="menu-overlay__close" id="menuClose" type="button" aria-label="Close menu">
-          <span class="menu-overlay__close-icon" aria-hidden="true">
-            <!-- Close X icon -->
-          </span>
+        <button
+          class="menu-overlay__close"
+          id="menuClose"
+          type="button"
+          aria-label="Close menu"
+        >
+          <span class="menu-overlay__close-icon" aria-hidden="true"></span>
         </button>
       </div>
 
-      <!-- Scrollable Drawer Body -->
-      <div class="menu-overlay__body">
-
-        <!-- ── Profile Section ── -->
-        <section class="menu-profile" id="menuProfile">
+      <div class="menu-overlay__scroll">
+        <section class="menu-profile" id="menuProfile" aria-label="User profile">
           <div class="menu-profile__avatar-wrap">
             <img
               class="menu-profile__avatar"
@@ -172,40 +175,37 @@
               width="64"
               height="64"
               loading="lazy"
+              decoding="async"
             >
             <span class="menu-profile__status-dot" aria-label="Online"></span>
           </div>
+
           <div class="menu-profile__info">
             <h3 class="menu-profile__name" id="menuUserName">Guest User</h3>
             <p class="menu-profile__email" id="menuUserEmail">Sign in to continue</p>
           </div>
+
           <button class="menu-profile__edit" id="menuProfileEdit" type="button" aria-label="Edit profile">
             <span class="menu-profile__edit-icon" aria-hidden="true"></span>
           </button>
         </section>
 
-        <!-- ── Refer & Earn Card ── -->
-        <section class="menu-refer" id="menuReferCard">
-          <div class="menu-refer__card">
-            <div class="menu-refer__content">
-              <span class="menu-refer__icon" aria-hidden="true">
-                <!-- Gift / Referral icon -->
-              </span>
-              <div class="menu-refer__text">
-                <h4 class="menu-refer__title">Refer &amp; Earn</h4>
-                <p class="menu-refer__subtitle">Invite friends, earn rewards on every purchase</p>
+        <section class="menu-referral" id="menuReferCard" aria-label="Refer and earn">
+          <div class="menu-referral__card">
+            <div class="menu-referral__content">
+              <span class="menu-referral__icon" aria-hidden="true"></span>
+              <div class="menu-referral__text">
+                <h4 class="menu-referral__title">Refer &amp; Earn</h4>
+                <p class="menu-referral__subtitle">Invite friends, earn rewards on every purchase</p>
               </div>
             </div>
-            <button class="menu-refer__cta" id="menuReferCta" type="button">Invite Now</button>
+            <button class="menu-referral__cta" id="menuReferCta" type="button">Invite Now</button>
           </div>
         </section>
 
-        <!-- ── Categorized Navigation Links ── -->
-
-        <!-- User Links -->
-        <section class="menu-group" data-group="user">
-          <h4 class="menu-group__title">User</h4>
-          <ul class="menu-group__list">
+        <section class="menu-group" data-group="user" aria-labelledby="menuGroupUser">
+          <h4 class="menu-group__title" id="menuGroupUser">User</h4>
+          <ul class="menu-group__list" role="list">
             <li class="menu-group__item">
               <a class="menu-group__link" href="#/wallet">
                 <span class="menu-group__link-icon" aria-hidden="true" data-icon="wallet"></span>
@@ -239,10 +239,9 @@
           </ul>
         </section>
 
-        <!-- System Links -->
-        <section class="menu-group" data-group="system">
-          <h4 class="menu-group__title">System</h4>
-          <ul class="menu-group__list">
+        <section class="menu-group" data-group="system" aria-labelledby="menuGroupSystem">
+          <h4 class="menu-group__title" id="menuGroupSystem">System</h4>
+          <ul class="menu-group__list" role="list">
             <li class="menu-group__item">
               <a class="menu-group__link" href="#/notifications">
                 <span class="menu-group__link-icon" aria-hidden="true" data-icon="notifications"></span>
@@ -269,10 +268,9 @@
           </ul>
         </section>
 
-        <!-- Control Links -->
-        <section class="menu-group" data-group="control">
-          <h4 class="menu-group__title">Control</h4>
-          <ul class="menu-group__list">
+        <section class="menu-group" data-group="control" aria-labelledby="menuGroupControl">
+          <h4 class="menu-group__title" id="menuGroupControl">Control</h4>
+          <ul class="menu-group__list" role="list">
             <li class="menu-group__item">
               <a class="menu-group__link" href="#/settings">
                 <span class="menu-group__link-icon" aria-hidden="true" data-icon="settings"></span>
@@ -302,10 +300,9 @@
           </ul>
         </section>
 
-        <!-- Support Links -->
-        <section class="menu-group" data-group="support">
-          <h4 class="menu-group__title">Support</h4>
-          <ul class="menu-group__list">
+        <section class="menu-group" data-group="support" aria-labelledby="menuGroupSupport">
+          <h4 class="menu-group__title" id="menuGroupSupport">Support</h4>
+          <ul class="menu-group__list" role="list">
             <li class="menu-group__item">
               <a class="menu-group__link" href="#/help">
                 <span class="menu-group__link-icon" aria-hidden="true" data-icon="help"></span>
@@ -336,35 +333,22 @@
             </li>
           </ul>
         </section>
-
       </div>
 
-      <!-- Drawer Footer — Logout -->
       <div class="menu-overlay__footer">
         <p class="menu-overlay__version">Nexa Vault v1.0.0</p>
         <button class="menu-logout" id="menuLogout" type="button">
-          <span class="menu-logout__icon" aria-hidden="true">
-            <!-- Logout icon -->
-          </span>
+          <span class="menu-logout__icon" aria-hidden="true"></span>
           <span class="menu-logout__label">Log Out</span>
         </button>
       </div>
-
     </nav>
   </div>
 
-
-  <!-- ═══════════════════════════════════════════════════════════
-       §4–§6 · MAIN CONTENT AREA
-       ═══════════════════════════════════════════════════════════ -->
   <main class="main" id="appMain" role="main">
-
-
-    <!-- ── §4 · BANNER STAGE ── -->
     <section class="banner-stage" id="bannerStage" aria-label="Promotions">
-      <div class="banner-stage__viewport">
+      <div class="banner-stage__viewport" id="bannerViewport">
         <div class="banner-stage__track" id="bannerTrack">
-
           <article class="banner-stage__slide" data-slide="0">
             <a class="banner-stage__link" href="#/promo/1" aria-label="Promotion 1">
               <figure class="banner-stage__figure">
@@ -376,7 +360,7 @@
           <article class="banner-stage__slide" data-slide="1">
             <a class="banner-stage__link" href="#/promo/2" aria-label="Promotion 2">
               <figure class="banner-stage__figure">
-                <img class="banner-stage__img" src="assets/banners/banner-02.webp" alt="Promotional banner 2" loading="lazy" draggable="false">
+                <img class="banner-stage__img" src="assets/banners/banner-02.webp" alt="Promotional banner 2" loading="eager" draggable="false">
               </figure>
             </a>
           </article>
@@ -428,27 +412,22 @@
               </figure>
             </a>
           </article>
-
         </div>
       </div>
 
-      <!-- Progress Bar Lines (8 segments for auto-sync) -->
       <div class="banner-stage__progress" id="bannerProgress" aria-label="Banner progress">
-        <span class="banner-stage__progress-line banner-stage__progress-line--active" data-index="0"></span>
-        <span class="banner-stage__progress-line" data-index="1"></span>
-        <span class="banner-stage__progress-line" data-index="2"></span>
-        <span class="banner-stage__progress-line" data-index="3"></span>
-        <span class="banner-stage__progress-line" data-index="4"></span>
-        <span class="banner-stage__progress-line" data-index="5"></span>
-        <span class="banner-stage__progress-line" data-index="6"></span>
-        <span class="banner-stage__progress-line" data-index="7"></span>
+        <button class="banner-stage__progress-line banner-stage__progress-line--active" type="button" data-index="0" aria-label="Banner 1" aria-selected="true"></button>
+        <button class="banner-stage__progress-line" type="button" data-index="1" aria-label="Banner 2" aria-selected="false"></button>
+        <button class="banner-stage__progress-line" type="button" data-index="2" aria-label="Banner 3" aria-selected="false"></button>
+        <button class="banner-stage__progress-line" type="button" data-index="3" aria-label="Banner 4" aria-selected="false"></button>
+        <button class="banner-stage__progress-line" type="button" data-index="4" aria-label="Banner 5" aria-selected="false"></button>
+        <button class="banner-stage__progress-line" type="button" data-index="5" aria-label="Banner 6" aria-selected="false"></button>
+        <button class="banner-stage__progress-line" type="button" data-index="6" aria-label="Banner 7" aria-selected="false"></button>
+        <button class="banner-stage__progress-line" type="button" data-index="7" aria-label="Banner 8" aria-selected="false"></button>
       </div>
     </section>
 
-
-    <!-- ── §5 · GAME GALAXY (Icon System) ── -->
     <section class="game-galaxy" id="gameGalaxy" aria-label="Game categories">
-
       <div class="game-galaxy__header">
         <h2 class="game-galaxy__title">Game Galaxy</h2>
         <a class="game-galaxy__view-all" href="#/games">View All</a>
@@ -456,173 +435,202 @@
 
       <div class="game-galaxy__viewport">
         <div class="game-galaxy__rail" id="gameGalaxyRail">
-
-          <!-- Game Icon 1 -->
-          <a class="game-galaxy__item" href="#/game/free-fire" data-game="free-fire">
+          <a class="game-galaxy__item active" href="#/game/free-fire" data-game="free-fire">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/free-fire.webp" alt="Free Fire" width="64" height="64" loading="lazy">
+              <img class="game-galaxy__icon" src="assets/games/free-fire.webp" alt="Free Fire" width="64" height="64" loading="eager" decoding="async">
               <span class="game-galaxy__badge game-galaxy__badge--trending">TRENDING</span>
             </div>
             <span class="game-galaxy__label">Free Fire</span>
           </a>
 
-          <!-- Game Icon 2 -->
           <a class="game-galaxy__item" href="#/game/bgmi" data-game="bgmi">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/bgmi.webp" alt="BGMI" width="64" height="64" loading="lazy">
+              <img class="game-galaxy__icon" src="assets/games/bgmi.webp" alt="BGMI" width="64" height="64" loading="eager" decoding="async">
               <span class="game-galaxy__badge game-galaxy__badge--hot">HOT</span>
             </div>
             <span class="game-galaxy__label">BGMI</span>
           </a>
 
-          <!-- Game Icon 3 -->
           <a class="game-galaxy__item" href="#/game/valorant" data-game="valorant">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/valorant.webp" alt="Valorant" width="64" height="64" loading="lazy">
+              <img class="game-galaxy__icon" src="assets/games/valorant.webp" alt="Valorant" width="64" height="64" loading="eager" decoding="async">
               <span class="game-galaxy__badge game-galaxy__badge--new">NEW</span>
             </div>
             <span class="game-galaxy__label">Valorant</span>
           </a>
 
-          <!-- Game Icon 4 -->
+          <a class="game-galaxy__item" href="#/game/call-of-duty" data-game="call-of-duty">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/call-of-duty.webp" alt="COD Mobile" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">COD Mobile</span>
+          </a>
+
           <a class="game-galaxy__item" href="#/game/genshin-impact" data-game="genshin-impact">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/genshin-impact.webp" alt="Genshin Impact" width="64" height="64" loading="lazy">
+              <img class="game-galaxy__icon" src="assets/games/genshin-impact.webp" alt="Genshin Impact" width="64" height="64" loading="lazy" decoding="async">
             </div>
             <span class="game-galaxy__label">Genshin</span>
           </a>
 
-          <!-- Game Icon 5 -->
+          <a class="game-galaxy__item" href="#/game/fortnite" data-game="fortnite">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/fortnite.webp" alt="Fortnite" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">Fortnite</span>
+          </a>
+
           <a class="game-galaxy__item" href="#/game/mobile-legends" data-game="mobile-legends">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/mobile-legends.webp" alt="Mobile Legends" width="64" height="64" loading="lazy">
-              <span class="game-galaxy__badge game-galaxy__badge--trending">TRENDING</span>
+              <img class="game-galaxy__icon" src="assets/games/mobile-legends.webp" alt="Mobile Legends" width="64" height="64" loading="lazy" decoding="async">
             </div>
             <span class="game-galaxy__label">MLBB</span>
           </a>
 
-          <!-- Game Icon 6 -->
-          <a class="game-galaxy__item" href="#/game/clash-of-clans" data-game="clash-of-clans">
-            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/clash-of-clans.webp" alt="Clash of Clans" width="64" height="64" loading="lazy">
-            </div>
-            <span class="game-galaxy__label">CoC</span>
-          </a>
-
-          <!-- Game Icon 7 -->
           <a class="game-galaxy__item" href="#/game/pubg-mobile" data-game="pubg-mobile">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/pubg-mobile.webp" alt="PUBG Mobile" width="64" height="64" loading="lazy">
-              <span class="game-galaxy__badge game-galaxy__badge--hot">HOT</span>
+              <img class="game-galaxy__icon" src="assets/games/pubg-mobile.webp" alt="PUBG Mobile" width="64" height="64" loading="lazy" decoding="async">
             </div>
             <span class="game-galaxy__label">PUBG</span>
           </a>
 
-          <!-- Game Icon 8 -->
+          <a class="game-galaxy__item" href="#/game/minecraft" data-game="minecraft">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/minecraft.webp" alt="Minecraft" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">Minecraft</span>
+          </a>
+
           <a class="game-galaxy__item" href="#/game/steam" data-game="steam">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/steam.webp" alt="Steam" width="64" height="64" loading="lazy">
-              <span class="game-galaxy__badge game-galaxy__badge--new">NEW</span>
+              <img class="game-galaxy__icon" src="assets/games/steam.webp" alt="Steam" width="64" height="64" loading="lazy" decoding="async">
             </div>
             <span class="game-galaxy__label">Steam</span>
           </a>
 
-          <!-- Game Icon 9 -->
           <a class="game-galaxy__item" href="#/game/roblox" data-game="roblox">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/roblox.webp" alt="Roblox" width="64" height="64" loading="lazy">
+              <img class="game-galaxy__icon" src="assets/games/roblox.webp" alt="Roblox" width="64" height="64" loading="lazy" decoding="async">
             </div>
             <span class="game-galaxy__label">Roblox</span>
           </a>
 
-          <!-- Game Icon 10 -->
           <a class="game-galaxy__item" href="#/game/apex-legends" data-game="apex-legends">
             <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
-              <img class="game-galaxy__icon" src="assets/games/apex-legends.webp" alt="Apex Legends" width="64" height="64" loading="lazy">
+              <img class="game-galaxy__icon" src="assets/games/apex-legends.webp" alt="Apex Legends" width="64" height="64" loading="lazy" decoding="async">
             </div>
             <span class="game-galaxy__label">Apex</span>
           </a>
 
+          <a class="game-galaxy__item" href="#/game/fifa" data-game="fifa">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/fifa.webp" alt="FIFA" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">FIFA</span>
+          </a>
+
+          <a class="game-galaxy__item" href="#/game/league-of-legends" data-game="league-of-legends">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/league-of-legends.webp" alt="League of Legends" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">LoL</span>
+          </a>
+
+          <a class="game-galaxy__item" href="#/game/among-us" data-game="among-us">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/among-us.webp" alt="Among Us" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">Among Us</span>
+          </a>
+
+          <a class="game-galaxy__item" href="#/game/subway-surfers" data-game="subway-surfers">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/subway-surfers.webp" alt="Subway Surfers" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">Subway</span>
+          </a>
+
+          <a class="game-galaxy__item" href="#/game/asphalt-9" data-game="asphalt-9">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/asphalt-9.webp" alt="Asphalt 9" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">Asphalt</span>
+          </a>
+
+          <a class="game-galaxy__item" href="#/game/pes" data-game="pes">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/pes.webp" alt="eFootball" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">eFootball</span>
+          </a>
+
+          <a class="game-galaxy__item" href="#/game/clash-royale" data-game="clash-royale">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/clash-royale.webp" alt="Clash Royale" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">C. Royale</span>
+          </a>
+
+          <a class="game-galaxy__item" href="#/game/clash-of-clans" data-game="clash-of-clans">
+            <div class="game-galaxy__icon-wrap game-galaxy__icon-wrap--squircle">
+              <img class="game-galaxy__icon" src="assets/games/clash-of-clans.webp" alt="Clash of Clans" width="64" height="64" loading="lazy" decoding="async">
+            </div>
+            <span class="game-galaxy__label">CoC</span>
+          </a>
         </div>
       </div>
 
-      <!-- Pixel-Perfect JS Tracking Indicator -->
-      <div class="indicator-wrap" id="nexaIndicator">
-        <!-- JS will inject the tracking line / active indicator here -->
-      </div>
-
+      <div class="indicator-wrap" id="nexaIndicator"></div>
     </section>
 
-
-    <!-- ── §6 · PRODUCT STORE GRID ── -->
     <section class="product-store" id="productStore" aria-label="Product store">
       <div class="product-store__header">
         <h2 class="product-store__title">Top Picks For You</h2>
         <a class="product-store__view-all" href="#/store">View All</a>
       </div>
-      <div class="product-store__grid" id="productStoreGrid">
-        <!-- JS dynamically injects product cards here -->
-      </div>
+
+      <div class="product-store__grid" id="productGrid"></div>
+
       <div class="product-store__loader" id="productStoreLoader" hidden>
         <span class="product-store__spinner" aria-label="Loading products"></span>
       </div>
+
       <div class="product-store__empty" id="productStoreEmpty" hidden>
         <span class="product-store__empty-icon" aria-hidden="true"></span>
         <p class="product-store__empty-text">No products found</p>
       </div>
     </section>
-
-
   </main>
 
-
-  <!-- ═══════════════════════════════════════════════════════════
-       §7 · FIXED BOTTOM NAVIGATION
-       ═══════════════════════════════════════════════════════════ -->
   <nav class="bottom-nav" id="bottomNav" aria-label="Bottom navigation">
     <div class="bottom-nav__inner">
-
-      <!-- Home -->
       <a class="bottom-nav__item bottom-nav__item--active" href="#/home" data-tab="home" aria-current="page">
-        <span class="bottom-nav__icon" aria-hidden="true" data-icon="home">
-          <!-- Home icon -->
-        </span>
+        <span class="bottom-nav__icon" aria-hidden="true" data-icon="home"></span>
         <span class="bottom-nav__label">Home</span>
         <span class="bottom-nav__indicator"></span>
       </a>
 
-      <!-- Store -->
       <a class="bottom-nav__item" href="#/store" data-tab="store">
-        <span class="bottom-nav__icon" aria-hidden="true" data-icon="store">
-          <!-- Store icon -->
-        </span>
+        <span class="bottom-nav__icon" aria-hidden="true" data-icon="store"></span>
         <span class="bottom-nav__label">Store</span>
         <span class="bottom-nav__indicator"></span>
       </a>
 
-      <!-- Activity -->
       <a class="bottom-nav__item" href="#/activity" data-tab="activity">
-        <span class="bottom-nav__icon" aria-hidden="true" data-icon="activity">
-          <!-- Activity icon -->
-        </span>
+        <span class="bottom-nav__icon" aria-hidden="true" data-icon="activity"></span>
         <span class="bottom-nav__badge" id="activityBadge" hidden></span>
         <span class="bottom-nav__label">Activity</span>
         <span class="bottom-nav__indicator"></span>
       </a>
 
-      <!-- Profile -->
       <a class="bottom-nav__item" href="#/profile" data-tab="profile">
-        <span class="bottom-nav__icon" aria-hidden="true" data-icon="profile">
-          <!-- Profile icon -->
-        </span>
+        <span class="bottom-nav__icon" aria-hidden="true" data-icon="profile"></span>
         <span class="bottom-nav__label">Profile</span>
         <span class="bottom-nav__indicator"></span>
       </a>
-
     </div>
   </nav>
 
-
+  <script src="system.js"></script>
 </body>
-</html>
-
+                                                                                                                               </html>
